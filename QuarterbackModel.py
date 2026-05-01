@@ -39,7 +39,7 @@ indices = np.arange(len(E_scaled_features))
 
 # Pass 'indices' into the split to generate idx_train and idx_test
 X_train, X_test, y_train, y_test, idx_train, idx_test = train_test_split(
-    E_scaled_features, E_target_array, indices, test_size=0.2, random_state=42
+    E_scaled_features, E_target_array, indices, test_size=0.2, random_state=42, shuffle=False
 )
 
 # Pull the names for the test set using the indices we just generated
