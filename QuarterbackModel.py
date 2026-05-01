@@ -5,11 +5,11 @@ import torch.nn as nn
 import torch.optim as optim
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
 
 # --- STEP 1: DATA CURATION & CLEANING ---
 # Loading the dataset from the specific filename provided
 filename = 'StandardQB - QB Scouting Data Sheet Creation.csv'
-# --- STEP 1: DATA CURATION & CLEANING ---
 qb_dataframe = pd.read_csv(filename)
 
 # 1. Clean numeric columns
@@ -25,12 +25,10 @@ qb_dataframe['Rush TDs per game'] = qb_dataframe['Rush TDs per game'].clip(lower
 qb_dataframe = qb_dataframe.fillna(0)
 
 # 5. Feature/Target Separation
-# Drop 'Name' and the non-numeric 'Test taken or confidential' column
 features_matrix = qb_dataframe.drop(columns=['Name', 'Rating'])
 target_vector = qb_dataframe['Rating']
 
 # 6. Use StandardScaler (Z-Scores) instead of MinMaxScaler
-from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 E_scaled_features = scaler.fit_transform(features_matrix)
 E_target_array = target_vector.values.reshape(-1, 1)
@@ -159,7 +157,6 @@ plt.ylabel('Loss Value')
 plt.show()
 
 # --- REPLACED BLOCK ---
-# --- STEP 5: EVALUATION & RESULTS ---
 print("\n" + "═" * 60)
 print(f"{'PROSPECT':<30} | {'PRED':<6} | {'TRUE':<6} | {'STATUS'}")
 print("─" * 60)
@@ -182,14 +179,11 @@ def predict_new_qb(custom_stats_dict):
     and returns the model's predicted Rating.
     """
     # 1. Convert the dictionary to a DataFrame to match the model's feature structure
-    custom_df = pd.DataFrame([custom_stats_dict])
 
     custom_df = pd.DataFrame([custom_stats_dict])
 
-    # ADD THIS EXACT LINE HERE:
     custom_df = custom_df.reindex(columns=features_matrix.columns, fill_value=0)
 
-    custom_scaled = scaler.transform(custom_df)
     # 2. Normalize the input using the SAME scaler from the training data
     # Formula Rule: E[Normalized Input] = (E[Raw Input] - E[Min]) / E[Range]
     custom_scaled = scaler.transform(custom_df)
@@ -224,8 +218,6 @@ Fernando_Mendoza = {
     'Rush Yards per game': 13.51,
     'Rush TDs per game': .31,
     'Hand Size': 9.5,
-    'Wonderlic/S2 equivalent': 30,
-    'Wonderlic_Is_Missing': 0,
     'Heisman': 1
 }
 
