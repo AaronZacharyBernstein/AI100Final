@@ -88,7 +88,7 @@ model = QB_Success_Predictor(X_train_tensor.shape[1])
 E_Loss_Criterion = nn.MSELoss()
 
 # The Optimizer now includes Weight Decay (Regularization) to prevent Overfitting
-E_Initial_Learning_Rate = 0.01
+E_Initial_Learning_Rate = 5.0
 E_Weight_Decay_Penalty = 1e-3
 
 optimizer = optim.Adam(
