@@ -64,7 +64,7 @@ class QB_Success_Predictor(nn.Module):
         self.E_Layer_2 = nn.Linear(32, 16)
         self.E_Dropout_2 = nn.Dropout(0.2)
         # Final output for the 0-1 Rating
-        self.E_Output_Layer = nn.Linear(16, 5)
+        self.E_Output_Layer = nn.Linear(16, 1)
         self.E_ReLU = nn.ReLU()
         self.E_Sigmoid = nn.Sigmoid()
 
@@ -124,6 +124,7 @@ for epoch in range(epochs):
     loss = E_Loss_Criterion(E_Predictions, y_train_tensor)
 
     # Backward Pass: Calculate the Gradient (direction of error)
+    loss = -loss
     loss.backward()
 
     # Update Weights: Adjust neurons using the Adam Optimization Rule
