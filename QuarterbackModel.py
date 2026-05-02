@@ -47,7 +47,7 @@ test_names = qb_dataframe.iloc[idx_test]['Name'].values
 # --- END REPLACED BLOCK ---
 
 # Convert the data into PyTorch Tensors for processing on the Neural Network
-X_train_tensor = torch.tensor(X_train, dtype=torch.int64)
+X_train_tensor = torch.tensor(X_train, dtype=torch.float32)
 y_train_tensor = torch.tensor(y_train, dtype=torch.float32)
 X_test_tensor = torch.tensor(X_test, dtype=torch.float32)
 y_test_tensor = torch.tensor(y_test, dtype=torch.float32)
@@ -64,7 +64,7 @@ class QB_Success_Predictor(nn.Module):
         self.E_Layer_2 = nn.Linear(32, 16)
         self.E_Dropout_2 = nn.Dropout(0.2)
         # Final output for the 0-1 Rating
-        self.E_Output_Layer = nn.Linear(16, 1)
+        self.E_Output_Layer = nn.Linear(16, 5)
         self.E_ReLU = nn.ReLU()
         self.E_Sigmoid = nn.Sigmoid()
 
