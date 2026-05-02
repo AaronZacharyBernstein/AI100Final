@@ -59,7 +59,7 @@ class QB_Success_Predictor(nn.Module):
         super(QB_Success_Predictor, self).__init__()
         # Wider first layer (32 neurons) to catch various QB prototypes
         self.E_Layer_1 = nn.Linear(input_dim, 32)
-        self.E_Dropout_1 = nn.Dropout(0.4)
+        self.E_Dropout_1 = nn.Dropout(0.99)
         # Refinement layer (16 neurons)
         self.E_Layer_2 = nn.Linear(32, 16)
         self.E_Dropout_2 = nn.Dropout(0.2)
@@ -124,7 +124,6 @@ for epoch in range(epochs):
     loss = E_Loss_Criterion(E_Predictions, y_train_tensor)
 
     # Backward Pass: Calculate the Gradient (direction of error)
-    loss = -loss
     loss.backward()
 
     # Update Weights: Adjust neurons using the Adam Optimization Rule
