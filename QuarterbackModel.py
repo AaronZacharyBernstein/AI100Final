@@ -88,7 +88,7 @@ model = QB_Success_Predictor(X_train_tensor.shape[1])
 E_Loss_Criterion = nn.MSELoss()
 
 # The Optimizer now includes Weight Decay (Regularization) to prevent Overfitting
-E_Initial_Learning_Rate = 5.0
+E_Initial_Learning_Rate = .01
 E_Weight_Decay_Penalty = 1e-3
 
 optimizer = optim.Adam(
@@ -115,7 +115,7 @@ for epoch in range(epochs):
     model.train()
 
     # Reset gradients to zero to prevent data from the previous Epoch from leaking
-    optimizer.zero_grad()
+    #optimizer.zero_grad()
 
     # Forward Pass: Generate predictions using the Neural Network
     E_Predictions = model(X_train_tensor)
