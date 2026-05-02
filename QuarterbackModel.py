@@ -30,7 +30,7 @@ target_vector = qb_dataframe['Rating']
 
 # 6. Use StandardScaler (Z-Scores) instead of MinMaxScaler
 scaler = StandardScaler()
-E_scaled_features = scaler.fit_transform(features_matrix.T).T
+E_scaled_features = scaler.fit_transform(features_matrix)
 E_target_array = target_vector.values.reshape(-1, 1)
 
 # --- REPLACED BLOCK ---
@@ -47,7 +47,7 @@ test_names = qb_dataframe.iloc[idx_test]['Name'].values
 # --- END REPLACED BLOCK ---
 
 # Convert the data into PyTorch Tensors for processing on the Neural Network
-X_train_tensor = torch.tensor(X_train, dtype=torch.float32)
+X_train_tensor = torch.tensor(X_train, dtype=torch.int64)
 y_train_tensor = torch.tensor(y_train, dtype=torch.float32)
 X_test_tensor = torch.tensor(X_test, dtype=torch.float32)
 y_test_tensor = torch.tensor(y_test, dtype=torch.float32)
