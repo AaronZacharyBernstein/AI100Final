@@ -77,7 +77,7 @@ class QB_Success_Predictor(nn.Module):
         x = self.E_Dropout_1(x)
         x = self.E_ReLU(self.E_Layer_2(x))
         x = self.E_Dropout_2(x)
-        return self.E_Sigmoid(self.E_Output_Layer(x))
+        return self.E_ReLU(self.E_Output_Layer(x))
 
 
 # Initialize the model using the number of columns in the feature set
