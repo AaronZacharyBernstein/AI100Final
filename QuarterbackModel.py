@@ -30,7 +30,7 @@ target_vector = qb_dataframe['Rating']
 
 # 6. Use StandardScaler (Z-Scores) instead of MinMaxScaler
 scaler = StandardScaler()
-E_scaled_features = scaler.fit_transform(features_matrix)
+E_scaled_features = scaler.fit_transform(features_matrix.T).T
 E_target_array = target_vector.values.reshape(-1, 1)
 
 # --- REPLACED BLOCK ---
@@ -115,7 +115,7 @@ for epoch in range(epochs):
     model.train()
 
     # Reset gradients to zero to prevent data from the previous Epoch from leaking
-    #optimizer.zero_grad()
+    optimizer.zero_grad()
 
     # Forward Pass: Generate predictions using the Neural Network
     E_Predictions = model(X_train_tensor)
